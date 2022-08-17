@@ -4,5 +4,6 @@ declare global {
   interface Window {
     starknet?: IStarknetWindowObject;
     starknet_braavos?: IStarknetWindowObject;
+    
   }
 }

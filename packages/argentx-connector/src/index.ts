@@ -42,9 +42,16 @@ export class ArgentXConnector extends AbstractConnector {
       account = window.starknet.account;
     }
 
+    let chainIdNumber=0;
+    if(window.starknet.chainId == "SN_MAIN"){
+      chainIdNumber =1;
+    } else if(window.starknet.chainId == "SN_GOERLI"){
+      chainIdNumber =5;
+    }
+
     return {
       provider: window.starknet.provider,
-      chainId: window.starknet.chainId,
+      chainId: chainIdNumber,
       ...(account ? { account } : {}),
       ...(connectedAddress ? { connectedAddress } : {}),
     };
@@ -86,14 +93,23 @@ export class ArgentXConnector extends AbstractConnector {
       throw new NoStarknetProviderError();
     }
 
+    let chainIdNumber=0;
+    if(window.starknet.chainId == "SN_MAIN"){
+      chainIdNumber =1;
+    } else if(window.starknet.chainId == "SN_GOERLI"){
+      chainIdNumber =5;
+    }
+    
     // Temporary
-    return window.starknet.chainId;
+    return chainIdNumber;
   }
 
   public getAccount(): AccountInterface | undefined {
     if (!window.starknet) {
       throw new NoStarknetProviderError();
     }
+
+
 
     return window.starknet.account;
   }
