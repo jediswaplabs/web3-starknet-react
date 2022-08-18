@@ -29,9 +29,16 @@ export class BraavosConnector extends AbstractConnector {
       account = wallet.account;
     }
 
+    let chainIdNumber = 0;
+    if(wallet.provider.chainId == "0x534e5f4d41494e"){
+      chainIdNumber =1;
+    } else if(wallet.provider.chainId == "0x534e5f474f45524c49"){
+      chainIdNumber =5;
+    }
+
     return {
       provider: wallet.provider,
-      chainId: 5,
+      chainId: chainIdNumber,
       ...(account ? { account } : {}),
       ...(connectedAddress ? { connectedAddress } : {}),
     };
@@ -69,9 +76,14 @@ export class BraavosConnector extends AbstractConnector {
     if (!wallet) {
       throw new NoStarknetProviderError();
     }
+    let chainIdNumber = 0;
+    if(wallet.provider.chainId == "0x534e5f4d41494e"){
+      chainIdNumber =1;
+    } else if(wallet.provider.chainId == "0x534e5f474f45524c49"){
+      chainIdNumber =5;
+    }
 
-    // Temporary
-    return 5;
+    return chainIdNumber;
   }
 
   public getAccount(): AccountInterface | undefined {
