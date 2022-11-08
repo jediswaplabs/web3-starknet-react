@@ -54,7 +54,7 @@ export class BraavosConnector extends AbstractConnector {
     };
   }
 
-  private handleAccountsChanged = (accountAddresses: string[] | string) => {
+  private handleAccountsChanged = async (accountAddresses: string[] | string) => {
     if (__DEV__) {
       console.log(
         "Handling 'accountsChanged' event with payload",
@@ -65,22 +65,21 @@ export class BraavosConnector extends AbstractConnector {
     if (accountAddresses.length === 0) {
       this.emitDeactivate();
     } else {
-      this.emitUpdate({ connectedAddress: typeof accountAddresses == 'string'
-            ? accountAddresses
-            : accountAddresses[0]
-      });
+      const provider = await this.getProvider();
+      this.emitUpdate({ connectedAddress: typeof accountAddresses == 'string' ? accountAddresses : accountAddresses[0], provider});
     }
   };
 
-  private handleNetworkChanged(chainId: string) {
+  private handleNetworkChanged = async (chainId: string) => {
     if (__DEV__) {
       console.log(
           "Handling 'networkChanged' event with payload",
           chainId
       );
     }
+    const provider = await this.getProvider();
     const chainIdNumber = chainsLookup[chainId] ?? 0;
-    this.emitUpdate({ chainId: chainIdNumber });
+    this.emitUpdate({ chainId: chainIdNumber, provider });
   }
 
   public async getProvider(): Promise<any> {

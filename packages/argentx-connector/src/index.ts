@@ -72,7 +72,7 @@ export class ArgentXConnector extends AbstractConnector {
     if (accountAddresses.length === 0) {
       this.emitDeactivate();
     } else {
-      this.emitUpdate({ connectedAddress: accountAddresses[0] });
+      this.emitUpdate({ connectedAddress: accountAddresses[0], provider: window.starknet?.provider });
     }
   }
 
@@ -84,7 +84,7 @@ export class ArgentXConnector extends AbstractConnector {
       );
     }
     const chainIdNumber = chainsLookup[chainId] ?? 0;
-    this.emitUpdate({ chainId: chainIdNumber });
+    this.emitUpdate({ chainId: chainIdNumber, provider: window.starknet?.provider });
   }
 
   public async getProvider(): Promise<any> {
