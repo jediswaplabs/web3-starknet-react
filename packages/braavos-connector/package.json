@@ -36,7 +36,7 @@
     "@web3-starknet-react/types": "^2.2.2"
   },
   "devDependencies": {
-    "get-starknet": "^1.0.0"
+    "get-starknet": "^2.0.0"
   },
   "gitHead": "b893495a21b7d761d895aac9e89666875c315e7b"
 }
